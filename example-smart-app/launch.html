@@ -1,62 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Bootstrap Simple Login Form</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <style>
-        .login-form {
-            width: 340px;
-            margin: 50px auto;
-            font-size: 15px;
-        }
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel='stylesheet' type='text/css' href='./src/css/example-smart-app.css'>
+    <!--
+      Temporarily disable cerner-smart-embeddable-lib
+    <link rel='stylesheet' type='text/css' href='./lib/css/cerner-smart-embeddable-lib-1.0.0.min.css'>
+    -->
 
-        .login-form form {
-            margin-bottom: 15px;
-            background: #f7f7f7;
-            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-            padding: 30px;
-        }
+    <title>Example-SMART-App</title>
+  </head>
+  <body>
+    <!-- Required JS files to enable this page to embed within an MPage -->
+    <!--
+      Temporarily disable cerner-smart-embeddable-lib
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js'></script>
+      <script src='./lib/js/cerner-smart-embeddable-lib-1.0.0.min.js'></script>
+    -->
 
-        .login-form h2 {
-            margin: 0 0 15px;
-        }
+    <!-- FHIR Client JS Library -->
+    <script src='./lib/js/fhir-client-v0.1.12.js'></script>
 
-        .form-control, .btn {
-            min-height: 38px;
-            border-radius: 2px;
-        }
-
-        .btn {
-            font-size: 15px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-<div class="login-form">
-    <form action="http://localhost/oauth2/default/token" method="post">
-        <input name="grant_type" value="password" type="hidden">
-        <input name="client_id" value="GKlwDoMVDLpN_eIgXcQP8fbJGNSqru5e6aRvd7otJj4" type="hidden">
-        <input name="user_role" value="users" type="hidden">
-        <input name="scope" value="launch/patient openid fhirUser offline_access patient/Medication.read" type="hidden">
-
-        <h2 class="text-center">Log in</h2>
-        <div class="form-group">
-            <input name="username" type="text" class="form-control" placeholder="Username" required="required">
-        </div>
-        <div class="form-group">
-            <input name="password" type="password" class="form-control" placeholder="Password" required="required">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Log in</button>
-        </div>
-    </form>
-</div>
-</body>
+    <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
+    <!-- https://github.com/cerner/fhir-client-cerner-additions -->
+    <script src='./lib/js/fhir-client-cerner-additions-1.0.0.js'></script>
+    <script>
+        FHIR.oauth2.authorize({
+            'client_id': 'nG2JA0xZuQt7ESU9PApLlY0wxZ5sdAvN0j5AXUFhblI',
+            'scope':  'patient/Patient.read patient/Observation.read launch/patient online_access openid profile'
+        });
+    </script>
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+  </body>
 </html>
